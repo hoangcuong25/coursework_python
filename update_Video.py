@@ -58,8 +58,10 @@ class Update_video():
             if rating >= 0:
                 if name is not None :                   # If video found
                     lib.set_rating(key, rating)         # Update the rating of the video
+                    # Format text
+                    text = f"Name: {lib.get_name(key)} \nNew rating: {lib.get_rating(key)} \nPlays: {lib.get_play_count(key)}"
                     # Display updated video details in the text area
-                    lib.set_text(self.video_txt, f"Name: {lib.get_name(key)} \nNew rating: {lib.get_rating(key)} \nPlays: {lib.get_play_count(key)}" )
+                    lib.set_text(self.video_txt, text )
                     lib.show_list_videos(self)                         # Refresh the video list
                 else:                                   # If video not found
                     # Show warning message
