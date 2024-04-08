@@ -3,11 +3,7 @@ import tkinter.scrolledtext as tkst
 from tkinter import messagebox
 import video_library as lib
 import font_manager as fonts
-
-
-def set_text(text_area, content):           # then the new content is inserted 
-    text_area.delete("1.0", tk.END)         # first the existing content is deleted     
-    text_area.insert(1.0, content)          # then the new content is inserted 
+from PIL import Image, ImageTk
 
 # CREATE WINDOW
 class CheckVideos():                          
@@ -43,6 +39,9 @@ class CheckVideos():
         self.status_lbl = tk.Label(window, text="", font=("Helvetica", 10))
         self.status_lbl.grid(row=2, column=0, columnspan=4, sticky="W", padx=10, pady=10)
 
+        self.image_lbl = tk.Label(window)
+        self.image_lbl.grid(row= 1, column=3, sticky= "S")
+
         # display the list of videos in ScrolledText
         self.list_videos_clicked()
 
@@ -50,15 +49,23 @@ class CheckVideos():
     def check_video_clicked(self):
         key = self.input_txt.get()                  # Get the video number entered by the user
         name = lib.get_name(key)                    # Get the name of the video using the key
+        
         if name is not None:                        # If video found
             # Get details of the video
             director = lib.get_director(key)
             rating = lib.get_rating(key)
             play_count = lib.get_play_count(key)
+
+            image = self.image(key)
+
+            self.image_lbl.configure(image = image)
+            self.image_lbl.image = image
+
             # Format video details
             video_details = f"{name}\n{director}\nrating: {rating}\nplays: {play_count}"
             # Display video details in ScrolledText
-            set_text(self.video_txt, video_details)
+            lib.set_text(self.video_txt, video_details)
+            
         else:                                       # If video not found
             # Show warning message
             messagebox.showwarning('Warnig', f"Video {key} not found")
@@ -70,9 +77,16 @@ class CheckVideos():
         # Get the list of all videos
         video_list = lib.list_all()
         # Display the list of videos in ScrolledText
-        set_text(self.list_txt, video_list)
+        lib.set_text(self.list_txt, video_list)
         # Update status label
         self.status_lbl.configure(text="List Videos button was clicked!")
+
+    def image(self, key):
+        image = lib.get_image_path(key)
+        image = Image.open(image)
+        image = image.resize((250,150), Image.BICUBIC)
+        image = ImageTk.PhotoImage(image)
+        return image
 
 if __name__ == "__main__":  # only runs when this file is run as a standalone
     window = tk.Tk()        # create a TK object

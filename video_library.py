@@ -71,3 +71,14 @@ def show_list_videos(self):
 def set_text(text_area, content):           # then the new content is inserted 
     text_area.delete("1.0", tk.END)         # first the existing content is deleted     
     text_area.insert(1.0, content)          # then the new content is inserted 
+
+def get_image_path(key):
+    image_path = {
+        "01": "phimso1.jpg",
+        "02": "phimso2.jpg",
+        "03": "phimso3.jpg",
+        "04": "phimso4.jpg",
+        "05": "phimso5.jpg",
+
+    }
+    return image_path.get(key, "path/to/default.jpg")
