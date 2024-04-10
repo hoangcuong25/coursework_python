@@ -62,7 +62,7 @@ class CheckVideos():
             self.image_lbl.image = image
 
             video_details = f"{name}\n{director}\nrating: {rating}\nplays: {play_count}"     # Format video details
-            lib.set_text(self.video_txt, video_details)                                      # Display video details in ScrolledText
+            lib.set_text(self.video_txt, video_details)                                      # Display video details in Text area
             
         else:                                                                # If video not found
             messagebox.showwarning('Warnig', f"Video {key} not found")       # Show warning message

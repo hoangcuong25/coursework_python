@@ -55,7 +55,7 @@ class Update_video():
             key = self.input_number.get()           # Get the video number entered by the user
             name = lib.get_name(key)                # Get the name of the video using the key
             rating = int(self.input_rating.get())   # Get the new rating entered by the user
-            if rating >= 0:
+            if rating > 0 and rating < 6:
                 if name is not None :                   # If video found
                     lib.set_rating(key, rating)         # Update the rating of the video
                     # Format text
@@ -69,9 +69,9 @@ class Update_video():
                 # Update status label
                 self.status_lbl.configure(text="Update Video button was clicked!")
             else:
-                messagebox.showerror('Error', "Ratting must be an positive numbers")        # Show error message
+                messagebox.showerror('Error', "Ratting must be an interger smaller than 6 and greater than 0")        # Show error message
         except ValueError :                     # If there's a value error
-            messagebox.showerror('Error', "Ratting must be an integer")        # Show error message
+            messagebox.showerror('Error', "Ratting must be an interger smaller than 6 and greater than 0")        # Show error message
 
 if __name__ == "__main__":  # only runs when this file is run as a standalone
     window = tk.Tk()        # create a TK object
